@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // Comments Added 1234678901231221212122312 -->
+  // Comments Added -->
   title = 'demoProject';
 }
