@@ -15,7 +15,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				 sh 'npm run lint'
+				 sh 'npm install @angular/cli'
             }
         }
         stage('Deploy') {
