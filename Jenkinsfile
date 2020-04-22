@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 sh '''
-			 	$(npm bin)/ng test 
+			 	ng test 
 			 	'''
             }
         }
