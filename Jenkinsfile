@@ -1,9 +1,10 @@
 pipeline {
-    agent any
+    agent {
 
-    environment {
-        PATH = C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin'
+    node {
+        label 'nodejs'
     }
+	}
     stages {
         stage('Build') {
             steps {
