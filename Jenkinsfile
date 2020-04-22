@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-				sh 'ng run script'
+				sh 'npm run script'
             }
         }
     }
