@@ -9,12 +9,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'npm run install'
+                sh 'node -v'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
+				 sh 'npm run lint'
             }
         }
         stage('Deploy') {
