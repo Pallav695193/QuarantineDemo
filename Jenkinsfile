@@ -8,7 +8,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-			 	npm install
+			 sh '''
+		 	npm install --verbose -d 
+		 	npm install --save classlist.js
+		 	'''
             }
         }
         stage('Test') {
