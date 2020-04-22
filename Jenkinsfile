@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 sh '''
-			 	ng test 
+			 	npm install
 			 	'''
             }
         }
