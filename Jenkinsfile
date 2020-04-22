@@ -1,23 +1,27 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building..'
-		sh '''
-            npm run install
-        '''
-      }
+    agent any
+
+    environment {
+        PATH = '/usr/local/bin/node'
     }
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-      }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh '''
+                npm install
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying....'
-      }
-    }
-  }
 }
