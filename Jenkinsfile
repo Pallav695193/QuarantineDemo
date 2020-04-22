@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = 'C:\Program Files (x86)\Jenkins\nodes'
+        PATH = '/usr/local/bin/node'
     }
     stages {
         stage('Build') {
