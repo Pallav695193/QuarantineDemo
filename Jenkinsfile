@@ -15,12 +15,13 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-				 sh 'npm install @angular/cli'
+				 sh 'npm -v'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+				sh 'npm install @angular/cli'
             }
         }
     }
