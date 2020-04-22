@@ -8,9 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh '''
-                node -v
-                '''
+                sh node -v
             }
         }
         stage('Test') {
