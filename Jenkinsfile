@@ -1,17 +1,19 @@
 pipeline {
     agent any
-	
- tools {nodejs "nodejs"}
 
-  stages {
-    stage('Build') {
-      steps {
-		echo  'Building...'
-        sh 'npm config ls'
-      }
-    }
-  }
-    stage('Test') {
+    environment {
+        PATH = 'C:\Program Files (x86)\Jenkins\nodes'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh '''
+                npm install
+                '''
+            }
+        }
+        stage('Test') {
             steps {
                 echo 'Testing...'
             }
