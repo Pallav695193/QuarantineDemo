@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-		sh "cd $C:\Users\pnarang\Documents\GitHub\QuarantineDemo"
+		sh "cd $Documents\GitHub\QuarantineDemo\"
       }
     }
     stage('Test') {
