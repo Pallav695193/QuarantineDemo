@@ -1,202 +1,33 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.airbus.prism.icdc</groupId>
-  <artifactId>marsu-ui</artifactId>
-  <version>1.0.84-SNAPSHOT</version>
-  <name>marsu-ui</name>
+  <groupId>org.jfrog.test</groupId>
+  <artifactId>multi</artifactId>
+  <version>SNAPSHOT</version>
+  <name>Automate Aeroline</name>
+  <description>Automate Aeroline Test using Jenkins</description>
   <packaging>war</packaging>
 
-  <scm>
-    <connection>${scm-developerConnection-root}/${project.scm.code}/${project.artifactId}.git</connection>
-    <developerConnection>${scm-developerConnection-root}/${project.scm.code}/${project.artifactId}.git
-    </developerConnection>
-    <url>${scm-url-root}/${project.scm.code}/${project.artifactId}.git</url>
-    <tag>HEAD</tag>
-  </scm>
-  <distributionManagement>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+
+<distributionManagement>
     <repository>
-      <id>DEPLOY-REPO</id>
-      <name>Deployment Release Repository</name>
-      <url>${deploy-repository-url}</url>
+        <id>central</id>
+        <name>ITEM-s43651-releases</name>
+        <url>http://192.168.1.7:8081/artifactory/libs-release</url>
     </repository>
-    <snapshotRepository>
-      <id>DEPLOY-SN-REPO</id>
-      <name>Deployment Snapshot Repository</name>
-      <url>${deploy-snapshot-repository-url}</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-
-  <properties>
-    <project.scm.code>prism-framework</project.scm.code>
-    <!-- Tomcat plugin -->
-    <maven.tomcat.port>8084</maven.tomcat.port>
-    <war.name>${project.artifactId}_none_DEV</war.name>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.glassfish.jersey.core</groupId>
-      <artifactId>jersey-client</artifactId>
-      <version>2.22.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.4.2</version>
-    </dependency>
-    <dependency>
-      <groupId>com.airbus.prism.giw</groupId>
-      <artifactId>framework-common</artifactId>
-      <version>RELEASE</version>
-      <exclusions>
-        <exclusion>
-          <groupId>io.jsonwebtoken</groupId>
-          <artifactId>jjwt</artifactId>
-        </exclusion>
-        <!--<exclusion>
-            <groupId>com.airbus.prism.giw</groupId>
-            <artifactId>raml-api-validator</artifactId>
-        </exclusion>-->
-        <exclusion>
-          <groupId>com.google.inject</groupId>
-          <artifactId>guice</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.google.inject.extensions</groupId>
-          <artifactId>guice-persist</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.glassfish.jersey.containers</groupId>
-          <artifactId>jersey-container-servlet</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-  </dependencies>
-  <build>
+</distributionManagement>
+<build>
     <plugins>
-
-      <!-- Parse the environment.ts file to replace FULLNAME place holder -->
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
-        <executions>
-          <execution>
-            <id>replace-placeholder-environment-file</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/src</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${basedir}/src/main</directory>
-                  <filtering>true</filtering>
-                  <includes>
-                    <include>constant.ts</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.2</version>
-        <configuration>
-          <!--  for now the war is not correct when created in the forked mvn process -->
-          <arguments>-Dmaven.deploy.skip=true</arguments>
-        </configuration>
-      </plugin>
-	  <!-- GitFlow Plugin -->
-		<plugin>
-			<groupId>com.amashchenko.maven.plugin</groupId>
-			<artifactId>gitflow-maven-plugin</artifactId>
-			<version>1.11.0</version>
-			<configuration>
-				<pushRemote>false</pushRemote>
-				<keepBranch>false</keepBranch>
-				<gitFlowConfig>
-					<productionBranch>master</productionBranch>
-					<developmentBranch>develop</developmentBranch>
-					<featureBranchPrefix>feature/</featureBranchPrefix>
-					<releaseBranchPrefix>release/</releaseBranchPrefix>
-					<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-					<supportBranchPrefix>support/</supportBranchPrefix>
-					<versionTagPrefix>v</versionTagPrefix>
-					<origin>origin</origin>
-				</gitFlowConfig>
-				<versionDigitToIncrement>1</versionDigitToIncrement>
-			</configuration>
-		</plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.5.0</version>
-        <executions>
-          <execution>
-            <id>build</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-
-            <configuration>
-              <executable>npm.cmd</executable>
-              <arguments>
-                <argument>run</argument>
-                <argument>build</argument>
-                <argument>--</argument>
-                <argument>--prod</argument>
-                <argument>--base-href=/1V22/${project.artifactId}/</argument>
-                <argument>--output-path=target/${project.artifactId}-${project.version}</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>initialize</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-
-            <configuration>
-              <executable>npm.cmd</executable>
-              <arguments>
-                <argument>install</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Add RAML artifact -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.12</version>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>${project.basedir}/src/main/resources/api.raml</file>
-                  <type>raml</type>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+    <plugin> 
+        <groupId>org.apache.tomcat.maven</groupId> 
+        <artifactId>tomcat7-maven-plugin</artifactId> 
+        <version>2.2</version> 
+        <configuration> 
+        <port>9090</port> 
+        </configuration> 
+    </plugin> 
     </plugins>
-  </build>
-</project>
+</build>
+ </project>
