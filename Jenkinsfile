@@ -4,13 +4,14 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-		sh "cd $Documents\GitHub\QuarantineDemo\"
+		sh "cd /Users/pnarang/Documents/GitHub/QuarantineDemo"
+		sh "npm run ng -- build --base-href=/angular/"
       }
     }
     stage('Test') {
       steps {
         echo 'Testing..'
-		sh "npm run install"
+		sh "npm run lint"
       }
     }
     stage('Deploy') {
