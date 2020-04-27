@@ -1,11 +1,12 @@
 pipeline {
-  agent any
+  agent {
+   node {label 'nodejs'}
+  }
   stages {
     stage('Build') {
       steps {
         echo 'Building..'
-        sh 'cd /C/Users/pnarang/Documents/GitHub/QuarantineDemo'
-        sh 'npm run ng -- build --base-href=/angular/'
+        sh 'npm run install'
       }
     }
 
