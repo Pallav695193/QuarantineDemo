@@ -1,27 +1,18 @@
 pipeline {
   agent {
-   node {label 'nodejs'}
+    label 'maven'
   }
   stages {
-    stage('Build') {
+    stage("Clone Source") {
       steps {
-        echo 'Building..'
-        sh 'npm install -g @angular/cli@latest -ddd'
+       git 'https://github.com/Pallav695193/QuarantineDemo.git'
       }
     }
-
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-		sh 'npm run --ng test'
-      }
+    
+    stage("Mvn build"){
+        steps{
+            sh "mvn clean package -DskipTests"
+        }
     }
-
-    stage('Deploy') {
-      steps {
-        echo 'Deploying....'
-      }
-    }
-
   }
 }
